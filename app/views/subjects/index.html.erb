@@ -1,0 +1,16 @@
+<h1>Subjects</h1>
+<ul>
+  <% total_completed_tests = @completed_tests.count %>
+  <strong>Total Completed Tests:</strong> <%= total_completed_tests %>
+  <% @subjects.each do |subject| %>
+    <li>
+      <% completed_test = @completed_tests.find_by(subject_id: subject.id) %>
+      <%= link_to subject.name, show_test_subject_path(subject), style: completed_test ? 'color: green;' : '' %>
+      <% if completed_test %>
+        (Completed: <%= completed_test.percentage_correct.to_i %>%)
+      <% else %>
+        (Not Completed)
+      <% end %>
+    </li>
+  <% end %>
+</ul>

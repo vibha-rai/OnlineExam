@@ -1,0 +1,42 @@
+<div id="error-messages" style="color: red;"></div>
+
+<h1>Test for <%= @subject.name %></h1>
+<%= form_for @completed_test, url: submit_test_subject_path(@subject), method: :post, remote: true do |f| %>
+  <% @student_responses.each_with_index do |student_response, index| %>
+    <%= f.fields_for "student_responses[#{index}]", student_response do |ur| %>
+      <%= ur.hidden_field :question_id, value: student_response.question.id %>
+      <%= ur.hidden_field :option_id, value: '' %> <!-- Add a hidden field for option_id -->
+      <fieldset>
+        <legend><%= student_response.question.content %></legend>
+        <% student_response.question.options.each do |option| %>
+          <label>
+            <%= ur.radio_button :option_id, option.id, class: 'answer-radio' %>
+            <%= option.content %>
+          </label>
+        <% end %>
+      </fieldset>
+    <% end %>
+  <% end %>
+  <%= f.submit 'Submit Test', id: 'submit-button', disabled: true %>
+<% end %>
+
+<%= link_to 'Back to Subjects', subjects_path %>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.answer-radio').change(function() {
+            var allAnswered = true;
+
+            // Check if all radio buttons are selected
+            $('.answer-radio').each(function() {
+                if (!$('input[name="' + $(this).attr('name') + '"]:checked').length) {
+                    allAnswered = false;
+                }
+            });
+
+            // Enable or disable the submit button based on the result
+            $('#submit-button').prop('disabled', !allAnswered);
+        });
+    });
+</script>

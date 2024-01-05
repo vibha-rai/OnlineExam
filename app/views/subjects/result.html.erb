@@ -1,0 +1,22 @@
+<h1>Test Result for <%= @subject.name %></h1>
+<p>Total Marks: <%= @total_marks %></p>
+<p>Percentage Correct: <%= @percentage_correct %>%</p>
+
+<% @student_responses.each do |response| %>
+  <div>
+    <p><strong>Question:</strong> <%= response.question.content %></p>
+    <p><strong>Correct Answer:</strong> <%= response.question.correct_answer %></p>
+
+    <% if response.correct? %>
+      <p><strong>Your Answer:</strong> <span style="color: green;"><%= response.option.content %></span></p>
+      <p>(Correct)</p>
+    <% else %>
+      <p><strong>Your Answer:</strong> <span style="color: red;"><%= response.option.content %></span></p>
+      <p>(Incorrect)</p>
+    <% end %>
+  </div>
+  <hr>
+<% end %>
+
+<%= link_to 'Back to Subjects', subjects_path %>
+
