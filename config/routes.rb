@@ -1,10 +1,3 @@
-# Rails.application.routes.draw do
-#   get 'subjects/index'
-#   get 'subjects/show_test'
-#   get 'subjects/submit_test'
-#   get 'subjects/result'
-# end
-
 
 Rails.application.routes.draw do
   root 'subjects#index'
