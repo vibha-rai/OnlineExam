@@ -1,7 +1,6 @@
 <h1>Subjects</h1>
 <ul>
-  <% total_completed_tests = @completed_tests.count %>
-  <strong>Total Completed Tests:</strong> <%= total_completed_tests %>
+  <strong>Total Completed Tests:</strong> <%= @completed_tests.count %>
   <% @subjects.each do |subject| %>
     <li>
       <% completed_test = @completed_tests.find_by(subject_id: subject.id) %>

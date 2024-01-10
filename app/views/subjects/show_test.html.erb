@@ -5,7 +5,7 @@
   <% @student_responses.each_with_index do |student_response, index| %>
     <%= f.fields_for "student_responses[#{index}]", student_response do |ur| %>
       <%= ur.hidden_field :question_id, value: student_response.question.id %>
-      <%= ur.hidden_field :option_id, value: '' %> <!-- Add a hidden field for option_id -->
+      <%= ur.hidden_field :option_id, value: '' %>
       <fieldset>
         <legend><%= student_response.question.content %></legend>
         <% student_response.question.options.each do |option| %>
@@ -28,14 +28,12 @@
         $('.answer-radio').change(function() {
             var allAnswered = true;
 
-            // Check if all radio buttons are selected
             $('.answer-radio').each(function() {
                 if (!$('input[name="' + $(this).attr('name') + '"]:checked').length) {
                     allAnswered = false;
                 }
             });
 
-            // Enable or disable the submit button based on the result
             $('#submit-button').prop('disabled', !allAnswered);
         });
     });

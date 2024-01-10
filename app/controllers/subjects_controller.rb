@@ -3,7 +3,7 @@ class SubjectsController < ApplicationController
 
   def index
     @subjects = Subject.all
-    @student = Student.find_by(id: 1)  # You may need to replace 1 with the actual student id
+    @student = Student.find_by(id: 1)
     @completed_tests = @student.completed_tests.includes(:subject, :student_responses)
   end
 
@@ -12,7 +12,6 @@ class SubjectsController < ApplicationController
     @completed_test = CompletedTest.find_by(student: Student.first, subject: @subject)
 
     if @completed_test
-      # Redirect to the result page or display a message indicating that the test is already completed.
       redirect_to result_subject_path(@subject, test_id: @completed_test.id)
     else
       @questions = @subject.questions
